@@ -1,0 +1,52 @@
+# Operating System
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs and temporary files
+logs/
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tmp
+tmp/
+temp/
+
+# Node
+node_modules/
+dist/
+build/
+out/
+.cache/
+.next/
+.nuxt/
+.vercel/
+.parcel-cache/
+coverage/
+.nyc_output/
+*.tgz
+
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.iml
+*.iws
+*.suo
+*.user
+*.userprefs
+.vs/
+
+
+# Misc
+*.swp
+*~ 
+.project
+.cache/
+coverage-final.json

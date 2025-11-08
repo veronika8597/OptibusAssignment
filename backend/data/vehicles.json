@@ -1,0 +1,32 @@
+[
+  {
+    "id": "v1",
+    "licensePlate": "123-45-601",
+    "status": "Available",
+    "createdAt": "2024-01-01T09:00:00.000Z"
+  },
+  {
+    "id": "v2",
+    "licensePlate": "987-65-432",
+    "status": "InUse",
+    "createdAt": "2024-02-15T11:30:00.000Z"
+  },
+  {
+    "id": "v3",
+    "licensePlate": "555-11-222",
+    "status": "Maintenance",
+    "createdAt": "2024-03-20T08:10:00.000Z"
+  },
+  {
+    "id": "v4",
+    "licensePlate": "444-22-333",
+    "status": "Available",
+    "createdAt": "2024-04-10T14:05:00.000Z"
+  },
+  {
+    "id": "v5",
+    "licensePlate": "333-99-888",
+    "status": "Available",
+    "createdAt": "2024-05-01T07:40:00.000Z"
+  }
+]
