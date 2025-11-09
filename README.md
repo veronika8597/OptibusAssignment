@@ -7,6 +7,7 @@ Full-stack TypeScript assignment implementing a simple vehicle management system
 ## Tech Stack
 
 **Backend:** Node.js, Express, TypeScript, Zod, CORS, JSON file storage
+
 **Frontend:** React (Vite + TypeScript), Axios
 
 ## Run Instructions
