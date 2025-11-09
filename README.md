@@ -98,4 +98,3 @@ npm run test
 - Business constraint - enforces the 5% maintenance cap (on both create & update)
 
 Tests run on an isolated temporary JSON database to ensure clean, reproducible results.
-All key success and failure cases are covered, reflecting realistic backend behavior.
