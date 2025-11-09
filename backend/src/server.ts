@@ -4,19 +4,33 @@ import { z } from "zod";
 import { db, Vehicle, Status } from "./db";
 import crypto from "crypto";
 
+process.on("uncaughtException", (err) => console.error("Uncaught:", err));
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // --- validation schemas ---
 const StatusEnum = z.enum(["Available", "InUse", "Maintenance"]);
+
+const licensePattern = /^[A-Z0-9-]+$/i;
+
 const CreateVehicle = z.object({
-  licensePlate: z.string().min(3).max(20),
-  // status is optional on create; default = Available
+  licensePlate: z
+    .string()
+    .min(3)
+    .max(20)
+    .regex(licensePattern, "Invalid license plate format"),
   status: StatusEnum.optional(),
 });
+
 const UpdateVehicle = z.object({
-  licensePlate: z.string().min(3).max(20).optional(),
+  licensePlate: z
+    .string()
+    .min(3)
+    .max(20)
+    .regex(licensePattern, "Invalid license plate format")
+    .optional(),
   status: StatusEnum.optional(),
 });
 

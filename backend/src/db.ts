@@ -15,9 +15,21 @@ export interface Vehicle {
 }
 
 function read(): Vehicle[] {
-  const raw = fs.readFileSync(DB_PATH, "utf-8");
-  return JSON.parse(raw);
+  try {
+    if (!fs.existsSync(DB_PATH)) {
+      // create file if it doesn’t exist
+      fs.writeFileSync(DB_PATH, "[]", "utf-8");
+      return [];
+    }
+    const raw = fs.readFileSync(DB_PATH, "utf-8").trim();
+    if (!raw) return []; // empty file
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error("Failed to read DB:", err);
+    return [];
+  }
 }
+
 function write(all: Vehicle[]) {
   fs.writeFileSync(DB_PATH, JSON.stringify(all, null, 2));
 }

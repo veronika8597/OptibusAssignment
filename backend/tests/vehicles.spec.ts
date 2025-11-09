@@ -154,4 +154,11 @@ describe("Vehicle API", () => {
       .send({ status: "Maintenance" });
     expect(res.status).toBe(400);
   });
+
+  it("returns 404 when updating a non-existing vehicle", async () => {
+    const res = await request(app)
+      .put("/api/vehicles/does-not-exist")
+      .send({ status: "Available" });
+    expect(res.status).toBe(404);
+  });
 });
