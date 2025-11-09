@@ -37,6 +37,8 @@ npm run dev
 | DELETE | `/api/vehicles/:id` | Delete (only if Available)                   |
 | GET    | `/api/health`       | Health check                                 |
 
+---
+
 ### Business Rules
 
 - Default status: Available
@@ -45,6 +47,8 @@ npm run dev
 - Up to 5% of vehicles can be in Maintenance (min 1 allowed)
 - Data persisted in backend/data/vehicles.json
 
+---
+
 ### Features
 
 - Create, edit, delete vehicles
@@ -52,6 +56,8 @@ npm run dev
 - Frontend and backend both in TypeScript
 - Validation via Zod
 - Error handling and CORS enabled
+
+---
 
 ### Project Structure
 
@@ -71,11 +77,25 @@ frontend/
       VehicleTable.tsx
 ```
 
+---
+
 ### Tests
+
+#### Run tests
 
 ```bash
 cd backend
 npm run test
 ```
 
-Tests cover validation and rule enforcement.
+#### Whats tested:
+
+- Vehicle creation - ensures default status = Available and validates licensePlate format
+- Filtering & sorting - /api/vehicles supports search (q), status filtering, and sorting
+- Validation errors - rejects invalid or incomplete payloads
+- Update rules - vehicles in Maintenance can move only to Available
+- Deletion rules - prevents deleting vehicles in InUse or Maintenance
+- Business constraint - enforces the 5% maintenance cap (on both create & update)
+
+Tests run on an isolated temporary JSON database to ensure clean, reproducible results.
+All key success and failure cases are covered, reflecting realistic backend behavior.

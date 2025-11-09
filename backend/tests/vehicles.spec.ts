@@ -140,7 +140,7 @@ describe("Vehicle API", () => {
   });
 
   it("enforces the 5% maintenance cap on create", async () => {
-    // With 5 items and 1 maintenance, cap is 1 (min 1) — adding another Maintenance should fail
+    // With 5 items and 1 maintenance, cap is 1 (min 1) - adding another Maintenance should fail
     const res = await request(app)
       .post("/api/vehicles")
       .send({ licensePlate: "999-99-999", status: "Maintenance" });
