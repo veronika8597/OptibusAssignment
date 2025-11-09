@@ -1,8 +1,16 @@
 import express from "express";
 import cors from "cors";
-import { z } from "zod";
-import { db, Vehicle, Status } from "./db";
 import crypto from "crypto";
+import { db, type Vehicle, type Status } from "./db";
+import {
+  CreateVehicleSchema as CreateVehicle,
+  UpdateVehicleSchema as UpdateVehicle,
+} from "./schemas";
+import {
+  countMaintenance,
+  maxMaintenanceAllowed,
+  canChangeStatus,
+} from "./rules";
 
 process.on("uncaughtException", (err) => console.error("Uncaught:", err));
 
@@ -10,47 +18,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// --- validation schemas ---
-const StatusEnum = z.enum(["Available", "InUse", "Maintenance"]);
-
-const licensePattern = /^[A-Z0-9-]+$/i;
-
-const CreateVehicle = z.object({
-  licensePlate: z
-    .string()
-    .min(3)
-    .max(20)
-    .regex(licensePattern, "Invalid license plate format"),
-  status: StatusEnum.optional(),
-});
-
-const UpdateVehicle = z.object({
-  licensePlate: z
-    .string()
-    .min(3)
-    .max(20)
-    .regex(licensePattern, "Invalid license plate format")
-    .optional(),
-  status: StatusEnum.optional(),
-});
-
-// --- helpers for rules ---
-function maxMaintenanceAllowed(total: number) {
-  // "Only up to 5% can be in maintenance".
-  // for very small data sets we allow at least 1 to meet the seed requirement.
-  return Math.max(1, Math.floor(total * 0.05));
-}
-function countMaintenance(list: Vehicle[]) {
-  return list.filter((v) => v.status === "Maintenance").length;
-}
-
 // --- routes ---
 app.get("/api/health", (_req, res) => res.send({ ok: true }));
 
 // list
 app.get("/api/vehicles", (req, res) => {
   const all = db.all();
-  // simple search/filter/sort (nice-to-have)
+
+  // simple search / filter / sort
   const q = (req.query.q as string)?.toLowerCase();
   const status = req.query.status as Status | undefined;
   const sort = (req.query.sort as string) || "createdAt:desc";
@@ -87,7 +62,7 @@ app.post("/api/vehicles", (req, res) => {
 
   // rule: up to 5% in maintenance
   if (newVehicle.status === "Maintenance") {
-    const allowed = maxMaintenanceAllowed(all.length + 1); // include the new one
+    const allowed = maxMaintenanceAllowed(all.length + 1); // include new one
     if (countMaintenance(all) + 1 > allowed) {
       return res
         .status(400)
@@ -111,12 +86,8 @@ app.put("/api/vehicles/:id", (req, res) => {
 
   const before = all[idx];
 
-  // rule: A vehicle in Maintenance can only move to Available
-  if (
-    parsed.data.status &&
-    before.status === "Maintenance" &&
-    parsed.data.status !== "Available"
-  ) {
+  // rule: Maintenance -> only to Available
+  if (parsed.data.status && !canChangeStatus(before, parsed.data.status)) {
     return res
       .status(400)
       .send({ message: "Maintenance → only Allowed to switch to Available" });
@@ -144,7 +115,7 @@ app.delete("/api/vehicles/:id", (req, res) => {
   const v = all.find((x) => x.id === req.params.id);
   if (!v) return res.status(404).send({ message: "Not found" });
 
-  // rule: vehicles InUse or Maintenance cannot be deleted
+  // rule: InUse or Maintenance cannot be deleted
   if (v.status === "InUse" || v.status === "Maintenance") {
     return res
       .status(400)
