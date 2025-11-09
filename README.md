@@ -2,9 +2,11 @@
 
 Full-stack TypeScript assignment implementing a simple vehicle management system.
 
+---
+
 ## Tech Stack
 
-**Backend:** Node.js, Express, TypeScript, Zod, CORS, JSON file storage  
+**Backend:** Node.js, Express, TypeScript, Zod, CORS, JSON file storage
 **Frontend:** React (Vite + TypeScript), Axios
 
 ## Run Instructions
@@ -42,9 +44,9 @@ npm run dev
 ### Business Rules
 
 - Default status: Available
-- Vehicles in Maintenance can move only to Available
-- Vehicles in InUse or Maintenance cannot be deleted
-- Up to 5% of vehicles can be in Maintenance (min 1 allowed)
+- Vehicles in **Maintenance** can move only to **Available**
+- Vehicles in **InUse** or **Maintenance** cannot be deleted
+- Up to **5%** of vehicles can be in Maintenance (min 1 allowed)
 - Data persisted in backend/data/vehicles.json
 
 ---
@@ -53,8 +55,8 @@ npm run dev
 
 - Create, edit, delete vehicles
 - Filter and search by license plate or status
-- Frontend and backend both in TypeScript
-- Validation via Zod
+- Built with TypeScript on both frontend and backend
+- Input validation via Zod
 - Error handling and CORS enabled
 
 ---
@@ -65,16 +67,22 @@ npm run dev
 backend/
   src/
     db.ts
+    index.ts
+    rules.ts
+    schemas.ts
     server.ts
-  data/vehicles.json
+  data/
+    vehicles.json
 frontend/
   src/
     api.ts
-    main.tsx
     App.tsx
+    main.tsx
     components/
       VehicleForm.tsx
       VehicleTable.tsx
+tests/
+  vehicles.spec.ts
 ```
 
 ---
@@ -85,16 +93,16 @@ frontend/
 
 ```bash
 cd backend
-npm run test
+npm run test -- --coverage
 ```
 
 #### Whats tested:
 
-- Vehicle creation - ensures default status = Available and validates licensePlate format
-- Filtering & sorting - /api/vehicles supports search (q), status filtering, and sorting
-- Validation errors - rejects invalid or incomplete payloads
-- Update rules - vehicles in Maintenance can move only to Available
-- Deletion rules - prevents deleting vehicles in InUse or Maintenance
-- Business constraint - enforces the 5% maintenance cap (on both create & update)
+- **Vehicle creation** - ensures default status = Available and validates licensePlate format
+- **Filtering & sorting** - `/api/vehicles` supports search `q`, `status` filtering and `sort`
+- **Validation errors** - rejects invalid or incomplete payloads
+- **Update rules** - vehicles in Maintenance can move only to Available
+- **Deletion rules** - prevents deleting vehicles in InUse or Maintenance
+- **Business constraint** - enforces the 5% maintenance cap (on create & update)
 
 Tests run on an isolated temporary JSON database to ensure clean, reproducible results.
