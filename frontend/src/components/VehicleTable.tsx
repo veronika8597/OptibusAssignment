@@ -19,12 +19,14 @@ const VehicleTable = forwardRef<VehicleTableHandle, Props>(
     const [rows, setRows] = useState<Vehicle[]>([]);
     const [q, setQ] = useState("");
     const [statusFilter, setStatusFilter] = useState<"" | Status>("");
+    const [sort, setSort] = useState<"asc" | "desc">("desc");
     const [error, setError] = useState<string | null>(null);
 
     const load = useCallback(async (): Promise<void> => {
       const params: Record<string, string> = {};
       if (q) params.q = q;
       if (statusFilter) params.status = statusFilter;
+      params.sort = `createdAt:${sort}`;
       try {
         const res = await api.get<Vehicle[]>("/vehicles", { params });
         setRows(res.data);
@@ -32,7 +34,7 @@ const VehicleTable = forwardRef<VehicleTableHandle, Props>(
         const msg = e instanceof Error ? e.message : "Failed to load";
         setError(msg);
       }
-    }, [q, statusFilter]);
+    }, [q, statusFilter, sort]);
 
     useImperativeHandle(
       ref,
@@ -92,6 +94,16 @@ const VehicleTable = forwardRef<VehicleTableHandle, Props>(
           </select>
           <button className="btn" onClick={() => void load()}>
             Reload
+          </button>
+          <button
+            className="btn primary"
+            onClick={() => setSort((s) => (s === "asc" ? "desc" : "asc"))}
+            title={`Sort by created at (${
+              sort === "asc" ? "ascending" : "descending"
+            })`}
+            aria-label="Toggle created-at sort"
+          >
+            Sort by Date {sort === "asc" ? "↑" : "↓"}
           </button>
         </div>
         <div className="table-container">

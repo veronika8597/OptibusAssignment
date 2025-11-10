@@ -20,7 +20,7 @@
   {
     "id": "v4",
     "licensePlate": "444-22-333",
-    "status": "Available",
+    "status": "Maintenance",
     "createdAt": "2024-04-10T14:05:00.000Z"
   },
   {
@@ -28,29 +28,5 @@
     "licensePlate": "333-99-888",
     "status": "Available",
     "createdAt": "2024-05-01T07:40:00.000Z"
-  },
-  {
-    "id": "v6",
-    "licensePlate": "56487124",
-    "status": "Available",
-    "createdAt": "2025-11-10T17:11:22.934Z"
-  },
-  {
-    "id": "v7",
-    "licensePlate": "98756124",
-    "status": "Available",
-    "createdAt": "2025-11-10T17:11:32.093Z"
-  },
-  {
-    "id": "v8",
-    "licensePlate": "56-897-98",
-    "status": "Available",
-    "createdAt": "2025-11-10T17:20:36.229Z"
-  },
-  {
-    "id": "v9",
-    "licensePlate": "7845987",
-    "status": "Available",
-    "createdAt": "2025-11-10T17:23:22.348Z"
   }
 ]

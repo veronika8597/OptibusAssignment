@@ -128,10 +128,6 @@ label {
   border-color: #beb1d8;
   box-shadow: 0 3px 6px rgba(124, 58, 237, 0.25);
 }
-.btn.primary:hover {
-  background: linear-gradient(180deg, #7e6fee, #6936d9);
-  transform: translateY(-1px);
-}
 .btn.ghost {
   background: #f1ecf7;
 }
