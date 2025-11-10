@@ -25,7 +25,7 @@ export default function VehicleTable() {
     void load();
   }, [load]);
 
-  async function changeStatus(id: string, status: Status) {
+  async function onStatusChange(id: string, status: Status) {
     try {
       const res = await api.put<Vehicle>(`/vehicles/${id}`, { status });
       setRows((x) => x.map((v) => (v.id === id ? res.data : v)));
@@ -91,7 +91,9 @@ export default function VehicleTable() {
                 <select
                   className="inline"
                   value={v.status}
-                  onChange={(e) => changeStatus(v.id, e.target.value as Status)}
+                  onChange={(e) =>
+                    onStatusChange(v.id, e.target.value as Status)
+                  }
                 >
                   <option>Available</option>
                   <option>InUse</option>
