@@ -14,6 +14,23 @@ import {
 
 process.on("uncaughtException", (err) => console.error("Uncaught:", err));
 
+function nextVid(all: Vehicle[]): string {
+  const set = new Set(all.map((x) => String(x.id)));
+  const max = all.reduce((acc, v) => {
+    const m = /^v(\d+)$/i.exec(String(v.id));
+    if (!m) return acc;
+    const n = Number(m[1]);
+    return Number.isFinite(n) && n > acc ? n : acc;
+  }, 0);
+  let n = max + 1;
+  let id = `v${n}`;
+  while (set.has(id)) {
+    n += 1;
+    id = `v${n}`;
+  }
+  return id;
+}
+
 const app = express();
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
@@ -54,7 +71,7 @@ app.post("/api/vehicles", (req, res) => {
 
   const all = db.all();
   const newVehicle: Vehicle = {
-    id: crypto.randomUUID(),
+    id: nextVid(all),
     licensePlate: parsed.data.licensePlate,
     status: parsed.data.status ?? "Available",
     createdAt: new Date().toISOString(),
