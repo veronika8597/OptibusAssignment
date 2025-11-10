@@ -30,27 +30,15 @@
     "createdAt": "2024-05-01T07:40:00.000Z"
   },
   {
-    "id": "30801e94-a957-41d0-bed2-e3dedc30c34e",
-    "licensePlate": "2356897",
-    "status": "Available",
-    "createdAt": "2025-11-10T15:51:18.767Z"
-  },
-  {
-    "id": "e4af1b38-8bb2-4b94-83c3-92b0117ea03e",
-    "licensePlate": "23145789",
-    "status": "Available",
-    "createdAt": "2025-11-10T15:51:30.287Z"
-  },
-  {
     "id": "e878097f-97b7-43e7-ab78-c9adcc494bcd",
     "licensePlate": "7894571",
     "status": "InUse",
     "createdAt": "2025-11-10T16:02:02.059Z"
   },
   {
-    "id": "24e368c4-ee52-403f-af75-d01981772548",
-    "licensePlate": "784658978",
-    "status": "Available",
-    "createdAt": "2025-11-10T16:11:42.847Z"
+    "id": "ce1a8d18-f422-4714-9f8c-9a9328b31b5d",
+    "licensePlate": "78456124",
+    "status": "Maintenance",
+    "createdAt": "2025-11-10T16:26:55.882Z"
   }
 ]

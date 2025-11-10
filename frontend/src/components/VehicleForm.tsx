@@ -58,7 +58,7 @@ export default function VehicleForm({
           <option>Maintenance</option>
         </select>
       </div>
-      <button className="btn primary" disabled={loading}>
+      <button className="btn" disabled={loading}>
         Add Vehicle
       </button>
       {error && <span className="error">{error}</span>}

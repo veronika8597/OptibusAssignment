@@ -1,10 +1,12 @@
 import VehicleForm from "./components/VehicleForm";
-import VehicleTable from "./components/VehicleTable";
-import { useReducer } from "react";
+import VehicleTable, {
+  type VehicleTableHandle,
+} from "./components/VehicleTable";
+import { useRef } from "react";
 import "./styles.css";
 
 export default function App() {
-  const [, force] = useReducer((x: number) => x + 1, 0);
+  const tableRef = useRef<VehicleTableHandle>(null);
 
   return (
     <div className="page">
@@ -13,12 +15,9 @@ export default function App() {
         <p className="muted">
           Create, edit, delete and manage vehicle statuses.
         </p>
-
-        <VehicleForm onCreated={() => force()} />
-
+        <VehicleForm onCreated={() => tableRef.current?.reload()} />
         <div className="hr" />
-        <VehicleTable />
-
+        <VehicleTable ref={tableRef} />
         <p className="rules">
           Rules: Maintenance→only to Available. InUse/Maintenance cannot be
           deleted. Max 5% in Maintenance at once.
