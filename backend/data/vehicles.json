@@ -40,5 +40,17 @@
     "licensePlate": "98756124",
     "status": "Available",
     "createdAt": "2025-11-10T17:11:32.093Z"
+  },
+  {
+    "id": "v8",
+    "licensePlate": "56-897-98",
+    "status": "Available",
+    "createdAt": "2025-11-10T17:20:36.229Z"
+  },
+  {
+    "id": "v9",
+    "licensePlate": "7845987",
+    "status": "Available",
+    "createdAt": "2025-11-10T17:23:22.348Z"
   }
 ]

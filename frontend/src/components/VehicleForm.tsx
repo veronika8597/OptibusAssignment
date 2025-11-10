@@ -12,8 +12,22 @@ export default function VehicleForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  function validatePlate(plate: string): string | null {
+    const clean = plate.replace(/-/g, "");
+    if (!/^\d+$/.test(clean)) return "Invalid format";
+    if (clean.length < 7) return "Too short";
+    return null;
+  }
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+
+    const msg = validatePlate(licensePlate);
+    if (msg) {
+      setError(msg);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     try {

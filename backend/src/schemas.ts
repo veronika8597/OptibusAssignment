@@ -1,23 +1,16 @@
 import { z } from "zod";
 
-export const StatusEnum = z.enum(["Available", "InUse", "Maintenance"]);
-export const licensePattern = /^[A-Z0-9-]+$/i;
+const LicensePlateSchema = z
+  .string()
+  .trim()
+  .refine((v) => /^\d+(?:-\d+)*$/.test(v.replace(/\s+/g, "")), "Invalid format")
+  .refine((v) => v.replace(/[-\s]/g, "").length >= 7, "Too short");
 
 export const CreateVehicleSchema = z.object({
-  licensePlate: z
-    .string()
-    .min(3)
-    .max(20)
-    .regex(licensePattern, "Invalid license plate format"),
-  status: StatusEnum.optional(),
+  licensePlate: LicensePlateSchema,
+  status: z.enum(["Available", "InUse", "Maintenance"]).optional(),
 });
 
 export const UpdateVehicleSchema = z.object({
-  licensePlate: z
-    .string()
-    .min(3)
-    .max(20)
-    .regex(licensePattern, "Invalid license plate format")
-    .optional(),
-  status: StatusEnum.optional(),
+  status: z.enum(["Available", "InUse", "Maintenance"]).optional(),
 });
