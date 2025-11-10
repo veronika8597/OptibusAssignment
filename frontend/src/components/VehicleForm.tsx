@@ -35,17 +35,15 @@ export default function VehicleForm({
   }
 
   return (
-    <form
-      onSubmit={submit}
-      style={{ display: "flex", gap: 8, alignItems: "end", flexWrap: "wrap" }}
-    >
-      <div>
+    <form onSubmit={submit} className="toolbar" style={{ alignItems: "end" }}>
+      <div style={{ minWidth: 220 }}>
         <label>License Plate</label>
         <br />
         <input
           value={licensePlate}
           onChange={(e) => setLicensePlate(e.target.value)}
           required
+          placeholder="123-45-678"
         />
       </div>
       <div>
@@ -60,8 +58,10 @@ export default function VehicleForm({
           <option>Maintenance</option>
         </select>
       </div>
-      <button disabled={loading}>Add Vehicle</button>
-      {error && <span style={{ color: "crimson" }}>{error}</span>}
+      <button className="btn primary" disabled={loading}>
+        Add Vehicle
+      </button>
+      {error && <span className="error">{error}</span>}
     </form>
   );
 }

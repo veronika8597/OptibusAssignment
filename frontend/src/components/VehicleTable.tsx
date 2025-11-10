@@ -52,7 +52,7 @@ export default function VehicleTable() {
 
   return (
     <>
-      <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+      <div className="toolbar">
         <input
           placeholder="Search plate…"
           value={q}
@@ -67,21 +67,18 @@ export default function VehicleTable() {
           <option>InUse</option>
           <option>Maintenance</option>
         </select>
-        <button onClick={() => void load()}>Reload</button>
+        <button className="btn" onClick={() => void load()}>
+          Reload
+        </button>
       </div>
 
-      <table
-        width="100%"
-        border={1}
-        cellPadding={6}
-        style={{ borderCollapse: "collapse" }}
-      >
+      <table className="table">
         <thead>
           <tr>
             <th>id</th>
-            <th>licensePlate</th>
+            <th>license plate</th>
             <th>status</th>
-            <th>createdAt</th>
+            <th>created at</th>
             <th>actions</th>
           </tr>
         </thead>
@@ -89,9 +86,10 @@ export default function VehicleTable() {
           {rows.map((v) => (
             <tr key={v.id}>
               <td>{v.id}</td>
-              <td>{v.licensePlate}</td>
+              <td style={{ fontWeight: 600 }}>{v.licensePlate}</td>
               <td>
                 <select
+                  className="inline"
                   value={v.status}
                   onChange={(e) => changeStatus(v.id, e.target.value as Status)}
                 >
@@ -101,15 +99,30 @@ export default function VehicleTable() {
                 </select>
               </td>
               <td>{new Date(v.createdAt).toLocaleString()}</td>
-              <td>
-                <button onClick={() => remove(v.id)}>Delete</button>
+              <td className="actions">
+                <button
+                  className="btn delete"
+                  onClick={() => remove(v.id)}
+                  disabled={v.status !== "Available"}
+                  title={
+                    v.status !== "Available"
+                      ? "Make vehicle Available to delete"
+                      : undefined
+                  }
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {error && <div style={{ color: "crimson", marginTop: 8 }}>{error}</div>}
+      {error && (
+        <div className="error" style={{ marginTop: 8 }}>
+          {error}
+        </div>
+      )}
     </>
   );
 }

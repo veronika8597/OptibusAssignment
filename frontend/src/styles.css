@@ -1,0 +1,214 @@
+/* 1) Load fonts FIRST */
+@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+
+/* 2) Theme tokens */
+:root {
+  --bg: #f3f4f8;
+  --panel: #ffffff;
+  --card: #f8fafc;
+  --muted: #7b8492;
+  --text: #271c2e;
+  --border: #e2e8f0;
+  --brand: #7c3aed; /* violet */
+  --brand-2: #22c55e; /* green */
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* 3) Base */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: radial-gradient(
+      1200px 600px at -10% -10%,
+      #2b1a5b22,
+      transparent 70%
+    ),
+    radial-gradient(800px 400px at 120% -10%, #16563b22, transparent 70%),
+    var(--bg);
+  color: var(--text);
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 4) Layout */
+.page {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+/* 5) Typography */
+h1 {
+  font-size: 26px;
+  margin: 0 0 6px;
+  letter-spacing: 0.2px;
+}
+p.muted {
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+/* Font ONLY for the main page header */
+.page .card > h1 {
+  font-family: "Questrial", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+  font-weight: 400;
+  font-size: 38px;
+  letter-spacing: 0.2px;
+  color: #2b235f;
+  -webkit-text-stroke: 0.25px #2b235f;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  margin-bottom: 12px;
+}
+@media (max-width: 600px) {
+  .page .card > h1 {
+    font-size: 24px;
+  }
+}
+
+/* 6) Inputs */
+input,
+select,
+button {
+  font: inherit;
+  color: var(--text);
+}
+input,
+select {
+  background: #f3f4f8;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+  transition: 0.15s border, 0.15s box-shadow, 0.15s background;
+}
+input:focus,
+select:focus {
+  border-color: #58607a;
+  box-shadow: 0 0 0 3px #7c3aed33;
+}
+label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* 7) Buttons */
+.btn {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #f1ecf7, #beb1d8);
+  border-color: #beb1d8;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: 0.15s transform, 0.15s background, 0.15s border;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn.primary {
+  background: linear-gradient(180deg, #f1ecf7, #beb1d8);
+  border-color: #beb1d8;
+  box-shadow: 0 3px 6px rgba(124, 58, 237, 0.25);
+}
+.btn.primary:hover {
+  background: linear-gradient(180deg, #7e6fee, #6936d9);
+  transform: translateY(-1px);
+}
+.btn.ghost {
+  background: #f1ecf7;
+}
+.btn.delete {
+  background: #f5f3ff;
+  border: 1px solid #e2d9fa;
+  color: #5a4aa0;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn.delete:hover {
+  background: #fde8ea;
+  border-color: #f5c9cf;
+  color: #63000a;
+}
+
+/* 8) Toolbar */
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 12px 0 14px;
+}
+.toolbar input {
+  flex: 1;
+}
+
+/* 9) Table (rounded “cards” rows) */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+.table thead th {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 0 14px 6px 14px;
+  text-align: left;
+}
+.table tbody tr {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.table tbody td {
+  padding: 12px 14px;
+  border-bottom: none;
+}
+.table tbody tr:hover {
+  outline: 1px solid #39415666;
+}
+.table td:first-child {
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+.table td:last-child {
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+select.inline {
+  background: #f3f4f8;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+/* 10) Extras */
+.hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #2a3242, transparent);
+  border: 0;
+  margin: 18px 0;
+}
+.error {
+  color: #ff6b7a;
+}
+.rules {
+  color: var(--muted);
+  margin-top: 14px;
+}
