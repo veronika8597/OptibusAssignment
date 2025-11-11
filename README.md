@@ -60,7 +60,8 @@ npm run dev
 - Input validation via Zod
 - Error handling and CORS enabled
 
-## The React + TypeScript frontend provides a minimal interface for managing vehicles with inline status updates, filters, and disabled actions based on business rules.
+#### The React + TypeScript frontend provides a minimal interface for managing vehicles with inline status updates, filters, and disabled actions based on business rules.
+---
 
 ### Project Structure
 
